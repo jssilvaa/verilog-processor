@@ -28,7 +28,7 @@ module bram_1kb_be(
     
     // Initialize memory to NOPs 
     // Note: NOP is 0xF000, so high byte = 0xF0, low byte = 0x00
-    // If NOP encoding changes ANYWHERE, this needs to be updated
+    // If NOP encoding changes, this needs to be updated
     integer i;
     initial begin
         for (i = 0; i < 512; i = i + 1) begin
@@ -37,27 +37,17 @@ module bram_1kb_be(
         end
     end
 
-    // Simulation init images (hi/lo byte lanes).
-    //
-    // Defaults are repo-relative so simulation works on any machin from the get-go 
-    // you can override this later depending on your path choices 
-    //   +MEM_HEX_HI=path/to/mem_hi.hex +MEM_HEX_LO=path/to/mem_lo.hex
+    // simulation file paths
     reg [1023:0] MEM_HEX_LO;
     reg [1023:0] MEM_HEX_HI;
-    integer fh;
     initial begin
-        if (!$value$plusargs("MEM_HEX_LO=%s", MEM_HEX_LO))
-            MEM_HEX_LO = "srcs/mem/mem_lo.hex";
-        if (!$value$plusargs("MEM_HEX_HI=%s", MEM_HEX_HI))
-            MEM_HEX_HI = "srcs/mem/mem_hi.hex";
-
-        fh = $fopen(MEM_HEX_LO, "r");
-        if (fh == 0) $display("WARN: BRAM init file not found: %0s (LO byte lane)", MEM_HEX_LO);
-        else $fclose(fh);
-        fh = $fopen(MEM_HEX_HI, "r");
-        if (fh == 0) $display("WARN: BRAM init file not found: %0s (HI byte lane)", MEM_HEX_HI);
-        else $fclose(fh);
-
+    `ifndef SIM 
+        MEM_HEX_LO = "/home/josesilvaa/processor/srcs/mem/mem_lo.hex";
+        MEM_HEX_HI = "/home/josesilvaa/processor/srcs/mem/mem_hi.hex";
+    `else
+        MEM_HEX_LO = "../../../../srcs/mem/mem_lo.hex";
+        MEM_HEX_HI = "../../../../srcs/mem/mem_hi.hex";
+    `endif
         $readmemh(MEM_HEX_LO, mem_l);
         $readmemh(MEM_HEX_HI, mem_h);
     end

@@ -1,8 +1,8 @@
-# GR0041 Softcore SoC (GR0040 CPU) on Zybo Z7-10
+# Softcore SoC on Zybo Z7-10
 
-A small 16-bit FPGA softcore “ecosystem” based on (and adapted from) Gray’s GR0040 RISC CPU design, wrapped into a simple SoC harness (commonly referred to here as **GR0041**) with **hardware vectored interrupts**, **Harvard BRAM**, and a handful of MMIO peripherals.
+A small 16-bit FPGA softcore “ecosystem” based on (and adapted from) Gray’s GR0040 RISC CPU design, wrapped into a SoC together with **hardware vectored interrupts**, **Harvard BRAM**, and a handful of MMIO peripherals.
 
-This repo contains a Vivado project targeting the **Zybo Z7-10 (XC7Z010)**, plus a Python assembler and example bare-metal programs.
+This repo contains the Vivado project targeting the **Zybo Z7-10 (XC7Z010)**, plus a Python assembler and example bare-metal programs.
 
 ## Highlights
 
@@ -187,6 +187,7 @@ The full programmer’s guide / implementation notes are in:
 ## Practical notes / gotchas
 
 - `srcs/m_bram.v` initializes BRAM from `srcs/mem/mem_hi.hex` and `srcs/mem/mem_lo.hex` by default. You can override paths at sim-time with `+MEM_HEX_HI=...` and `+MEM_HEX_LO=...`.
+- In Vivado/xsim runs (when `SIM` is defined), the default paths are set up to work from Vivado’s generated `processor.sim/.../behav/xsim/` directory (repo root is typically `../../../../`). For fully deterministic CI, prefer passing explicit `+MEM_HEX_HI=... +MEM_HEX_LO=...`.
 - UART baud rate is compile-time selectable in `srcs/m_periph_bus.v`: `SIM` builds use a much faster baud for testbench convenience.
 
 ## Credits
