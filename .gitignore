@@ -1,0 +1,3 @@
+# ignore all project specific directories 
+# project dependencies are located under srcs/ constraints/ and tools/
+processor.*/ 
