@@ -32,7 +32,7 @@ This repo contains the Vivado project targeting the **Zybo Z7-10 (XC7Z010)**, pl
 - `tools/` – software tools
 	- `assembler.py` – assembler that emits BRAM init images
 	- `abi.inc` – ABI register aliases + convenience macros
-- `sw-programs/` – example assembly programs
+- `assembly/` – example assembly programs
 	- `input.asm` – vector table + ISRs + small ABI tests
 - `constraints/` – Zybo XDC constraints (and optional ILA constraints)
 - `docs/` – LaTeX programmer’s guide + implementation notes
