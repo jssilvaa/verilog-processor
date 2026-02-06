@@ -1,6 +1,6 @@
 GR0040/GR0041 Glossary (Signals + Terms)
 
-Last reviewed: 2026-02-04
+Last reviewed: 2026-02-06
 
 Addressing terms
 - byte address: address counts bytes; word-aligned if addr[0]=0.
